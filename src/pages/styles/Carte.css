@@ -14,3 +14,26 @@ body{
 .carteCache{
     opacity: 0;
 }
+
+.marker{
+    color: red;
+}
+
+.marker svg{
+    width: 30px;
+    height: 30px;
+    fill: white;
+    stroke: black;
+    stroke-width: 5px;
+}
+
+.marker:hover svg{
+    transition: 0.3s;
+    cursor: pointer;
+    transform: scale(1.5);
+    width: 30px;
+    height: 30px;
+    fill: #FF6004;
+    stroke: black;
+    stroke-width: 5px;
+}
