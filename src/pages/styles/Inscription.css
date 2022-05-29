@@ -31,8 +31,7 @@ body {
 }
 .form-container{
     flex-direction: row;
-    width: 50%;
-    height: 550px;
+	width: 100%;
 }
 form {
 	background-color: #FFFFFF;
@@ -72,4 +71,9 @@ button:hover{
     background: white;
     color: #FF4B2B;
     border: 1px solid #FF4B2B;
+}
+
+
+#container{
+	width: 500px;
 }

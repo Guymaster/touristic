@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './styles/Carte.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import basiliqueIMG from '../assets/sites/baselique.jpg';
+import foretIMG from '../assets/sites/arbre.jpg';
 import mapboxgl, { Marker } from 'mapbox-gl';
 import config from '../configuration';
 import { useEffect } from 'react';
@@ -8,9 +10,8 @@ import * as FS from './../datas/firebaseServices.js';
 import SiteInfoBox from './components/SiteInfoBox';
 import { useNavigate } from 'react-router-dom';
 
-
-
 export default function Carte(){
+    let image;
     const navigate = useNavigate();
     function versSite(carte){
       navigate("/site", {id: carte});
@@ -56,10 +57,17 @@ export default function Carte(){
             });
         });
       }, []);
+    
+    if(hoveredSite.id=='basiliqueYamoussoukro'){
+        image = basiliqueIMG;
+    }
+    else{
+        image = foretIMG;
+    }
     return (
         <>
             <div id='carte' className='carteCache'></div>
-            <SiteInfoBox id={hoveredSite.id} nom={hoveredSite.nom} description={hoveredSite.description} img={hoveredSite.image} note={hoveredSite.note}/>
+            <SiteInfoBox img={image} id={hoveredSite.id} nom={hoveredSite.nom} description={hoveredSite.description} note={hoveredSite.note}/>
         </>
     );
 }

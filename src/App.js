@@ -9,6 +9,7 @@ import ErrorPage from './pages/ErrorPage.js';
 import VoirSite from './pages/VoirSite.js';
 import VoirVille from './pages/VoirVille.js';
 import Inscription from './pages/Inscription.js';
+import Connexion from './pages/Connexion.js';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/confirmerSejour" element={<ConfirmerSejour />} />
           <Route path="/choisirHotel" element={<ChoisirHotel />} />
           <Route path="/inscription" element={<Inscription />} />
+          <Route path="/connexion" element={<Connexion />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>
