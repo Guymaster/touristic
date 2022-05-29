@@ -1,7 +1,57 @@
 #box{
     position: absolute;
-    width: 200px;
-    height: 200px;
+    width: 300px;
+    height: 400px;
     background-color: white;
+    border: solid 1px black;
     z-index: 3;
+    top: 50%;
+    margin-top: -200px;
+    right: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+#box img{
+    height: 200px;
+}
+
+#choixVilleBTN{
+    background-color: green;
+    border: solid 1px green;
+    width: 150px;
+    margin: auto;
+    margin-top: 50px;
+    border-radius: 5px;
+    font-weight: bold;
+    color: white;
+}
+
+#choixVilleBTN:hover{
+    transition: 0.3s;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+}
+
+.notEmpty .boxEmpty{
+    display: none;
+}
+
+.empty .boxNotEmpty{
+    display: none;
+}
+
+#note{
+    text-align: right;
+    padding-right: 20px;
+}
+
+#nom{
+    margin-top: 10px;
+    text-align: left;
+    padding-left: 20px;
 }

@@ -15,10 +15,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" index element={<Acceuil />} />
-          <Route path="/carte" element={<Carte />} >
-            <Route path="./ville" element={<VoirVille />} />
-            <Route path="./site" element={<VoirSite />} />
-          </Route>
+          <Route path="/carte" element={<Carte />} />
+          <Route path="/ville" element={<VoirVille />} />
+            <Route path="/site" element={<VoirSite />} />
           <Route path="/confirmerSejour" element={<ConfirmerSejour />} />
           <Route path="/choisirHotel" element={<ChoisirHotel />} />
           <Route path="*" element={<ErrorPage />} />

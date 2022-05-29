@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './styles/Carte.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import mapboxgl, { Marker } from 'mapbox-gl';
@@ -6,9 +6,16 @@ import config from '../configuration';
 import { useEffect } from 'react';
 import * as FS from './../datas/firebaseServices.js';
 import SiteInfoBox from './components/SiteInfoBox';
+import { useNavigate } from 'react-router-dom';
+
 
 
 export default function Carte(){
+    const navigate = useNavigate();
+    function versSite(carte){
+      navigate("/site", {id: carte});
+    }
+    const [hoveredSite, setHoveredSite] = useState({nom: null, description: null, note: null, image: null, id: null});
     const etendue = new mapboxgl.LngLatBounds(
         new mapboxgl.LngLat(-8.695002641378096, 11.193029455359323),
         new mapboxgl.LngLat(-1.2068389083279938, 4.072716763388659)
@@ -37,13 +44,22 @@ export default function Carte(){
                     anchor: 'center',
                     element: markElt,
                 }).setLngLat([snap.longitude, snap.latitude]).addTo(map);
+                markElt.addEventListener('mouseenter', ()=>{
+                    setHoveredSite({nom: snap.nom, description: snap.description, note: snap.note, image: snap.image, id: snap.id});
+                });
+                markElt.addEventListener('mouseleave', ()=>{
+                    setHoveredSite({nom: null, description: null, note: null, image: null, id: null});
+                });
+                markElt.addEventListener('click', ()=>{
+                    versSite('ID');
+                });
             });
         });
       }, []);
     return (
         <>
-            
             <div id='carte' className='carteCache'>
+                <SiteInfoBox id={hoveredSite.id} nom={hoveredSite.nom} description={hoveredSite.description} img={hoveredSite.image} note={hoveredSite.note}/>
             </div>
         </>
     );

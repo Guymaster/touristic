@@ -37,3 +37,15 @@ body{
     stroke: black;
     stroke-width: 5px;
 }
+
+#box[class='notEmpty']{
+    justify-content:start;
+}
+
+#box img{
+    background-color: aqua;
+    height: 100px;
+    width: 100%;
+    display: block;
+}
+
