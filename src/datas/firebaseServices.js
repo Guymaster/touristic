@@ -24,3 +24,20 @@ export async function getSitesAll(){
     });
     return liste;
 }
+
+export async function registerClient(){
+    let liste = [];
+    let ref = collection(store, 'site');
+    let snaps = await getDocs(ref);
+    snaps.forEach((snap)=>{
+        let map = {
+            id: snap.id,
+            nom: snap.data().nom,
+            longitude: snap.data().longitude,
+            latitude: snap.data().latitude,
+            idVille: snap.data().idVille
+        }
+        liste.push(map);
+    });
+    return liste;
+}

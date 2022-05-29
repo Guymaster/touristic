@@ -8,6 +8,7 @@ import ConfirmerSejour from './pages/ConfirmerSejour.js';
 import ErrorPage from './pages/ErrorPage.js';
 import VoirSite from './pages/VoirSite.js';
 import VoirVille from './pages/VoirVille.js';
+import Inscription from './pages/Inscription.js';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/site" element={<VoirSite />} />
           <Route path="/confirmerSejour" element={<ConfirmerSejour />} />
           <Route path="/choisirHotel" element={<ChoisirHotel />} />
+          <Route path="/inscription" element={<Inscription />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>

@@ -1,6 +1,7 @@
 .App {
   text-align: center;
   height: 100%;
+  width: 100vw;
 }
 
 body > #root > div {
@@ -27,6 +28,10 @@ body > #root > div {
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+*{
+  font-family: 'Ubuntu';
 }
 
 .App-link {

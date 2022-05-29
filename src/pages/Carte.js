@@ -58,9 +58,8 @@ export default function Carte(){
       }, []);
     return (
         <>
-            <div id='carte' className='carteCache'>
-                <SiteInfoBox id={hoveredSite.id} nom={hoveredSite.nom} description={hoveredSite.description} img={hoveredSite.image} note={hoveredSite.note}/>
-            </div>
+            <div id='carte' className='carteCache'></div>
+            <SiteInfoBox id={hoveredSite.id} nom={hoveredSite.nom} description={hoveredSite.description} img={hoveredSite.image} note={hoveredSite.note}/>
         </>
     );
 }
