@@ -7,7 +7,6 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function VoirSite(){
-    const [user, setUser] = useState(null);
     var infos;
     const navigate = useNavigate();
     function versErreur(){
@@ -27,21 +26,12 @@ export default function VoirSite(){
       function versVille(){
         navigate("/ville?id="+infos.idVille);
       }
+
+    addAvis().then((a)=>{
+        console.log("ADD AVIS", a)
+    });
+    
       
-      React.useEffect(() => {
-        onAuthStateChanged(auth, (luser) => {
-            alert('state changed')
-            console.log('USSSEEEER', luser)
-            if (luser) {
-              setUser(luser);
-              alert('ici')
-            } else {
-              setUser(null);
-            }
-            console.log('userFFF', user)
-          });
-        
-      }, [])
     return (
         <>
             <div id='contenu'>
@@ -83,9 +73,9 @@ export default function VoirSite(){
                 </div>
                 <div className='avisBox'>
                     <div className='laisserBox'>
-                        <textarea placeholder='Entrez du texte ici'disabled={user==null} rows='10' cols='60' id='commIn' ></textarea>
-                        <div className='noteBox' > <label htmlFor='noteArea'>Entrez une note</label> <input type='number' max='5' min='0' step='0.5' disabled={user==null} id='noteIn' /> </div>
-                        <button className={(user==null)?'laisserBTN disabled':'laisserBTN'}>Laisser un avis</button>
+                        <textarea placeholder='Entrez du texte ici' rows='10' cols='60' id='commIn' ></textarea>
+                        <div className='noteBox' > <label htmlFor='noteArea'>Entrez une note</label> <input type='number' max='5' min='0' step='0.5' id='noteIn' /> </div>
+                        <button className='laisserBTN' onClick={()=>{addAvis()}}>Laisser un avis</button>
                     </div>
                     <div className='commBox'>
                         <div className='commItem'>

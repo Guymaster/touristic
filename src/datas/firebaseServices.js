@@ -27,6 +27,33 @@ export async function getSitesAll(){
     return liste;
 }
 
+export async function getAvisAll(){
+    
+
+    let myPromise = new Promise(function(resolve, reject) {
+    let liste = [];
+    let ref = collection(store, 'avis');
+    let snaps = await getDocs(ref);
+    snaps.forEach((snap)=>{
+        let map = {
+            id: snap.id,
+            idClient: snap.data().idClient,
+            note: snap.data().note,
+        }
+        liste.push(map);
+    });
+    for(let i = 0; i<liste.length; i++){
+        let docRef = doc(store, "avis", liste[i].idClient);
+        let cl = await getDoc(docRef);
+        liste[i].nomClient = cl.data().prenoms + " " + cl.data().nom
+    }
+    resolve(liste);
+    });
+
+    let res = await myPromise;
+    return res;
+}
+
 export async function registerClient(email, password, nom, prenoms, telephone, adresse, photo){
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
@@ -91,10 +118,17 @@ export async function deconnexionClient(){
     });
 }
 
-export async function addAvis(idClient, note, commentaire){
-    const docRef = await addDoc(collection(store, "avis"), {
-        idClient: idClient,
-        note: note,
-        commentaire: commentaire
-      });
+export async function addAvis(){
+    let note = document.getElementById('noteIn').value
+    let comm = document.getElementById('commIn').value
+    const auth = getAuth();
+    auth.onAuthStateChanged(async (user)=>{
+        alert('c eu');
+        const docRef = await addDoc(collection(store, "avis"), {
+            idClient: user.uid,
+            note: note,
+            commentaire: comm
+          });
+    })
+    
 }
