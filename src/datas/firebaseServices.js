@@ -1,8 +1,8 @@
 import {initializeApp} from 'firebase/app';
 import {getAnalytics} from 'firebase/analytics';
-import { doc, getDoc, getFirestore, collection, getDocs, setDoc } from "firebase/firestore";
+import { doc, getDoc, getFirestore, collection, getDocs, setDoc, addDoc } from "firebase/firestore";
 import config from '../configuration';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
 import { async } from '@firebase/util';
 
 const app = initializeApp(config.firebase);
@@ -19,6 +19,7 @@ export async function getSitesAll(){
             nom: snap.data().nom,
             longitude: snap.data().longitude,
             latitude: snap.data().latitude,
+            description: snap.data().description,
             idVille: snap.data().idVille
         }
         liste.push(map);
@@ -78,4 +79,22 @@ export async function verifierConnexionClient(){
       });
       res = await myPromise;
       return res;
+}
+
+
+export async function deconnexionClient(){
+    const auth = getAuth();
+    signOut(auth).then(() => {
+        console.log('deco')
+    }).catch((error) => {
+        console.log('non deco')
+    });
+}
+
+export async function addAvis(idClient, note, commentaire){
+    const docRef = await addDoc(collection(store, "avis"), {
+        idClient: idClient,
+        note: note,
+        commentaire: commentaire
+      });
 }

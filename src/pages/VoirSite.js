@@ -1,126 +1,110 @@
 import React from 'react';
-import basiIMG from '../assets/baselique1.jpg';
-import './styles/VoirSite.css'
+import baselique from '../datas/sites/basilique.js';
+import './styles/VoirSite.css';
+import { useState } from 'react';
+import { verifierConnexionClient, deconnexionClient, addAvis } from '../datas/firebaseServices';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function VoirSite(){
+    var infos;
+    const navigate = useNavigate();
+    function versErreur(){
+      navigate("/error");
+    }
+    let url = new URL(window.location.href);
+    let id = url.searchParams.get('id')
+    if(id=='basiliqueYamoussoukro'){
+        infos = baselique;
+        alert('oui')
+    }
+    else{
+        versErreur();
+        alert('non')
+    }
+    const {state} = useLocation();
+    console.log('id', state)
+
+    const [user, setUser] = useState(null);
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+        console.log('state changed')
+        if (user) {
+          setUser(user);
+        } else {
+          setUser(null);
+        }
+        console.log('user', user)
+      });
+      function soummettreAvis(){
+          let idClient = user.uid;
+          let note = document.getElementById('noteIn').value;
+          let comm = document.getElementById('commIn').value;
+          addAvis(idClient, note, comm).then(()=>{console.log('c fait')})
+      }
     return (
         <>
-            <div className="image">
-        <h2> NOTRE DAME DE DE LA PAIX</h2>
-
-    </div>
-    <div className="texte">
-        <div className="composant">
-            <h1>Présentation</h1>
-            <ul>
-                <li>Nom Local: <span>Baselique notre Dame de la paix</span></li>
-                <li>culte: <span>catholique romain</span></li>
-                <li>Type :<span>Baselique </span></li>
-                <li>Date d'inauguration:<span>1989</span></li>
-                <li>Architect:<span>Pierre Fakhoury</span></li>
-
-            </ul>
-        </div>
-        <div className="composant">
-            <h1>Géographie</h1>
-            <ul>
-                <li>Pays:<span>Côte d'Ivoire</span></li>
-                <li>Ville: <span>Yamoussoukro</span></li>
-                <li>coordonnées: <span>6°48'40' nord,5° 1749 ouest</span></li>
-                <li>sol
-                    <span></span>:<span>marbe importé d'italie, d'Espagne et du portugal</span></li>
-            </ul>
-        </div>
-        <div className="composant">
-            <h1>Dimenssion</h1>
-            <ul>
-                <li>Superficie : <span>30 000 m2</span></li>
-                <li>Volume : <span>800 000 m3</span></li>
-                <li>Largeur : <span>150 m</span></li>
-                <li>Profondeur : <span>30 m</span></li>
-                <li>Population : <span>18 000 personnes</span></li>
-            </ul>
-        </div>
-    </div>
-
-    <div id="section">
-        <div className="wrapper">
-            <div className="form-wrapper">
-                <form>
-                    <h1>Laissé un avis</h1>
-                    <div className="separation"></div>
-                    <div className="corps-formulaire">
-                        <div className="droite">
-                            <div className="groupe">
-                                <label htmlFor="#">Méssage</label>
-                                <textarea placeholder="Saisissez ici..."></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="piedformulaire" align="center">
-                        <button>Envoyer le message</button>
-                    </div>
-                </form>
-            </div>
-
-            <div className="advises">
-                <div class="inner-advises">
-                    <h1>Avis Clients</h1>
-
-                    <div className="box-wrapper">
-                        <div className="box">
-                            <div className="inner-box">
-                                <div className="user">
-                                    <div className="picture">
-                                        <img src="..//imgAPP/tete1.jpg" alt="teteimage"/>
-                                    </div>
-                                    <div className="username">John Doe</div>
-                                    <div className="stars">
-                                        <div className="stars-wrapper">
-                                            <i className="fa-solid fa-star"></i>
-                                            <i className="fa-solid fa-star"></i>
-                                            <i className="fa-solid fa-star"></i>
-                                            <i className="fa-solid fa-star"></i>
-                                            <i className="fa-solid fa-star"></i>
-                                            <i className="fa-solid fa-star-half-alt "></i>
-                                        </div>
-                                    </div>
+            <div id='contenu'>
+                <div className='imgBox'>
+                    <img src={infos.image}/>
+                </div>
+                <div className='nomSite'>{infos.nom}</div>
+                <div className='partBox'>
+                    <div className='partItem'>
+                        <div className='partItemTitre'>Présentation</div>
+                        {
+                            infos.presentation.map(function(item, i){
+                                return <div className='partItemRow'>
+                                    <span> {item.propNom}: </span> {item.propValue}
                                 </div>
-                                <p className="comment ">
-                                    C'est wonderfull j'ai vraiment apprecié l'animation du site Merci beaucoup pour m'avoir offert une tres bonne visiblité de notre dame de la paix, sans m'etre deplacer. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe aut porro ab illo magni
-                                    nam sit beatae
-                                </p>
-                            </div>
-                        </div>
-                        <div className="box ">
-                            <div className="inner-box ">
-                                <div className="user ">
-                                    <div className="picture ">
-                                        <img src="/imgAPP/tete2.jpg "/>
-                                    </div>
-                                    <div className="username ">John Doe</div>
-                                    <div className="stars ">
-                                        <div className="stars-wrapper">
-                                            <i className="fa-solid fa-star"></i>
-                                            <i className="fa-solid fa-star"></i>
-                                            <i className="fa-solid fa-star"></i>
-                                            <i className="fa-solid fa-star"></i>
-                                            <i className="fa-solid fa-star"></i>
-                                            <i className="fa-solid fa-star-half-alt"></i>
-                                        </div>
-                                    </div>
+                              })
+                        }
+                    </div>
+                    <div className='partItem'>
+                        <div className='partItemTitre'>Géographie</div>
+                        {
+                            infos.geographie.map(function(item, i){
+                                return <div className='partItemRow'>
+                                    <span> {item.propNom}: </span> {item.propValue}
                                 </div>
-                                <p className="comment ">
-                                    Je suis très satisfait de la beauté et de l'animation de du site. Sa donne vraiment un avant gout du site Notre dame de la paix. je doutais jusqu'a present de la beauté et de sa grandeur , et grace a vous tout est clair.Je viendrai faire une visite le
-                                    mois prochain
-                                </p>
-                            </div>
-                        </div>
+                              })
+                        }
+                    </div>
+                    <div className='partItem'>
+                        <div className='partItemTitre'>Dimensions</div>
+                        {
+                            infos.dimensions.map(function(item, i){
+                                return <div className='partItemRow'>
+                                    <span> {item.propNom}: </span> {item.propValue}
+                                </div>
+                              })
+                        }
                     </div>
                 </div>
+                <div className='avisBox'>
+                    <div className='laisserBox'>
+                        <textarea placeholder='Entrez du texte ici'disabled={user==null} rows='10' cols='60' id='commIn' ></textarea>
+                        <div className='noteBox' > <label htmlFor='noteArea'>Entrez une note</label> <input type='number' max='5' min='0' step='0.5' disabled={user==null} id='noteIn' /> </div>
+                        <button className={(user==null)?'laisserBTN disabled':'laisserBTN'}>Laisser un avis</button>
+                    </div>
+                    <div className='commBox'>
+                        <div className='commItem'>
+                            <div className='commItemHead'>
+                                <div className='commItemPhoto'></div>
+                                <div className='commItemNom'>John Doe</div>
+                                <div className='commItemNote'>4.5/5</div>
+                            </div>
+                            <div className='commItemBody'>
+                                lorem ipsum zfzeg zgzg zgzgzg zgzgzg zgzg fsqc aqcvazv av
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div className='villeBox'>
+                    Voir Abidjan
+                </div>
             </div>
-        </div>
-    </div>
         </>
     );
 }

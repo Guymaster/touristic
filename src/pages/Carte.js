@@ -14,7 +14,7 @@ export default function Carte(){
     let image;
     const navigate = useNavigate();
     function versSite(carte){
-      navigate("/site", {id: carte});
+      navigate("/site?id="+carte);
     }
     const [hoveredSite, setHoveredSite] = useState({nom: null, description: null, note: null, image: null, id: null});
     const etendue = new mapboxgl.LngLatBounds(
@@ -52,7 +52,7 @@ export default function Carte(){
                     setHoveredSite({nom: null, description: null, note: null, image: null, id: null});
                 });
                 markElt.addEventListener('click', ()=>{
-                    versSite('ID');
+                    versSite(snap.id);
                 });
             });
         });
