@@ -10,6 +10,7 @@ import VoirSite from './pages/VoirSite.js';
 import VoirVille from './pages/VoirVille.js';
 import Inscription from './pages/Inscription.js';
 import Connexion from './pages/Connexion.js';
+import PlanifierSejour from './pages/PlanifierSejour.js';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/choisirHotel" element={<ChoisirHotel />} />
           <Route path="/inscription" element={<Inscription />} />
           <Route path="/connexion" element={<Connexion />} />
+          <Route path="/planifier" element={<PlanifierSejour />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>

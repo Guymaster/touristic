@@ -1,5 +1,6 @@
 import React from 'react';
 import abidjan from '../datas/villes/abidjan.js';
+import yamoussoukro from '../datas/villes/yamoussoukro.js';
 import { useState } from 'react';
 import { verifierConnexionClient, deconnexionClient, addAvis } from '../datas/firebaseServices';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
@@ -13,9 +14,12 @@ export default function VoirVille(){
       navigate("/error");
     }
     let url = new URL(window.location.href);
-    let id = url.searchParams.get('id')
+    let id = url.searchParams.get('id');
     if(id=='ABIDJAN'){
         infos = abidjan;
+    }
+    else if(id=='YAMOUSSOUKRO'){
+        infos = yamoussoukro;
     }
     else{
         versErreur();
@@ -42,10 +46,10 @@ export default function VoirVille(){
     return (
         <>
             <div id='contenu'>
-                <div id='planifBTN'>Planifier un Séjour</div>
                 <div className='imgBox'>
                     <img src={infos.image}/>
                 </div>
+                <div id='planBTN'>Planifier un Séjour</div>
                 <div className='nomSite'>{infos.nom}</div>
                 <div className='partBox'>
                     <div className='partItem'>
@@ -78,8 +82,10 @@ export default function VoirVille(){
                               })
                         }
                     </div>
+                    
                 </div>
             </div>
+            
         </>
     );
 }

@@ -1,10 +1,9 @@
-import img from '../../assets/baselique1.jpg';
+import img from '../../assets/abidjan.png';
 
-const basilique = {
-    id: 'basiliqueYamoussoukro',
-    nom: 'NOTRE DAME DE LA PAIX',
+const yamoussoukro = {
+    id: 'YAMOUSSOUKRO',
+    nom: 'YAMOUSSOUKRO',
     image: img,
-    idVille: 'YAMOUSSOUKRO',
     presentation: [
         {propNom: 'Nom Local', propValue: 'Baselique notre Dame de la paix'},
         {propNom: 'Culte', propValue: 'Catholique Romain'},
@@ -27,4 +26,4 @@ const basilique = {
     ]
 };
 
-export default basilique;
+export default yamoussoukro;

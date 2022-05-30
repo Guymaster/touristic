@@ -7,6 +7,7 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function VoirSite(){
+    const [user, setUser] = useState(null);
     var infos;
     const navigate = useNavigate();
     function versErreur(){
@@ -16,32 +17,31 @@ export default function VoirSite(){
     let id = url.searchParams.get('id')
     if(id=='basiliqueYamoussoukro'){
         infos = baselique;
-        alert('oui')
+        console.log('OK', infos, baselique)
     }
     else{
+        console.log("LOG", infos)
         versErreur();
-        alert('non')
     }
-    const {state} = useLocation();
-    console.log('id', state)
-
-    const [user, setUser] = useState(null);
     const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-        console.log('state changed')
-        if (user) {
-          setUser(user);
-        } else {
-          setUser(null);
-        }
-        console.log('user', user)
-      });
-      function soummettreAvis(){
-          let idClient = user.uid;
-          let note = document.getElementById('noteIn').value;
-          let comm = document.getElementById('commIn').value;
-          addAvis(idClient, note, comm).then(()=>{console.log('c fait')})
+      function versVille(){
+        navigate("/ville?id="+infos.idVille);
       }
+      
+      React.useEffect(() => {
+        onAuthStateChanged(auth, (luser) => {
+            alert('state changed')
+            console.log('USSSEEEER', luser)
+            if (luser) {
+              setUser(luser);
+              alert('ici')
+            } else {
+              setUser(null);
+            }
+            console.log('userFFF', user)
+          });
+        
+      }, [])
     return (
         <>
             <div id='contenu'>
@@ -101,7 +101,7 @@ export default function VoirSite(){
                         
                     </div>
                 </div>
-                <div className='villeBox'>
+                <div className='villeBox' onClick={versVille()}>
                     Voir Abidjan
                 </div>
             </div>
